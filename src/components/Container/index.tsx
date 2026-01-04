@@ -1,0 +1,9 @@
+import type { ReactNode } from "react";
+
+export function Container({ children }: { children: ReactNode }) {
+  return (
+    <div className="flex items-center flex-col gap-2 mx-auto w-full max-w-6xl px-4 py-3">
+      {children}
+    </div>
+  );
+}
