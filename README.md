@@ -48,3 +48,55 @@ Linguagens básicas de marcação e estilização usadas para estruturar e embel
 
 ## 📁 Estrutura do Projeto
 
+```bash
+/
+├── public/ # Arquivos públicos (HTML principal, ícones)
+├── src/ # Código-fonte da aplicação React
+│ ├── components/ # Componentes reutilizáveis da UI
+│ ├── pages/ # Páginas da aplicação
+│ ├── context/ # Providers e Context API
+│ ├── services/ # Integração com Firebase
+│ └── styles/ # Estilos globais / modulares
+├── .env.example # Exemplo de variáveis de ambiente
+├── index.html # Documento HTML principal
+├── package.json # Dependências e scripts
+├── tsconfig.json / .json.app # Configurações do TypeScript
+├── vite.config.ts # Configuração do Vite
+└── README.md # Documentação do projeto
+
+````
+## 🚀 Como Executar Localmente
+
+1. **Clone o repositório**
+   ```bash
+   git clone https://github.com/RAGNAR303/AUTOCAR.git
+
+
+2. **Acesse a pasta do projeto**
+
+   ```bash
+   cd AUTOCAR
+
+3. **Instale as dependências**
+
+   ```bash
+   npm install
+
+4. **Configure as variáveis de ambiente**
+
+ - Crie um arquivo .env baseado em .env.example
+
+ - Adicione suas chaves do Firebase (Firestore)
+
+5. **Execute o servidor de desenvolvimento**
+
+   ```bash
+   npm run dev
+6. **Abra no navegador**
+👉 Acesse http://localhost:5173 (ou a porta exibida no console).
+
+
+👤 Autor
+
+Desenvolvido por RAGNAR303 / Thiago como um projeto de estudo para praticar desenvolvimento frontend moderno com React, TypeScript, gerenciamento de estado e integração com backend (Firebase). 
+GitHub, usando com referência uma series de videos do curso de desenvolvimento fullstack pro  do professor Matheus Fragra - Sujeito Programador.
