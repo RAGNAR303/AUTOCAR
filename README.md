@@ -1,73 +1,50 @@
-# React + TypeScript + Vite
+# AutoCar 🚘
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Uma aplicação web simulada de loja de carros, com sistema de login, cadastro de carros e gerenciamento de informações de usuário, construída para estudo e prática com React, Context API e integração com Firebase.
 
-Currently, two official plugins are available:
+## 🔎 Sobre o Projeto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+O **AutoCar** é uma interface de concessionária virtual que permite criar e gerenciar um catálogo de carros, além de autenticar usuários por meio de login. Ele foi idealizado como um projeto de estudo para treinar habilidades essenciais de desenvolvimento frontend com React e TypeScript, incluindo o uso de **Context API** para gerenciamento global de estado e **FireStore (Firebase)** para persistência de dados em nuvem. 
 
-## React Compiler
+Este projeto resolve o problema de aprendizagem de mecanismos fundamentais de aplicações reais, como controle de sessão, rotas protegidas, cadastro dinâmico de itens (carros) e armazenamento persistente, oferecendo uma base robusta para evoluir a uma aplicação mais completa no futuro.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🚀 Funcionalidades Principais
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 🔐 **Login de usuário** – Controle de acesso básico a página.
+- 🔐 **Cadastro de usuário** – Criação de acesso básico a página.    
+- 🚗 **Cadastro de carros** – Inserir novos carros na loja virtual.  
+- 📊 **Listagem de veículos** – Visualizar carros cadastrados.  
+- 🔄 **Gerenciamento de estado global** – Compartilhamento de informações de usuário e sessão com Context API.  
+- ☁️ **Banco de dados em nuvem** – Persistência de dados utilizando Firebase (Firestore).
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🧰 Tecnologias Utilizadas
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 🔹 **React**
+Biblioteca JavaScript para construção de interfaces de usuário com componentes reutilizáveis.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 🔹 **TypeScript**
+Superconjunto de JavaScript com tipagem estática, utilizada para maior segurança e manutenção do código. A grande maioria do projeto é escrita em TypeScript.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 🔹 **Vite**
+Ferramenta moderna de build e ambiente de desenvolvimento rápido, utilizada para configurar e rodar o frontend do projeto.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 🔹 **Firebase (Firestore)**
+Banco de dados NoSQL em nuvem utilizado para armazenar informações dos carros e usuários, provendo persistência e escalabilidade.
+
+### 🔹 **Context API (React)**
+Mecanismo de gerenciamento global de estado do React que facilita compartilhar dados entre componentes sem passar props manualmente.
+
+### 🔹 **ESLint**
+Ferramenta de linting para manter o padrão de código e identificar problemas durante o desenvolvimento.
+
+### 🔹 **HTML & CSS**
+Linguagens básicas de marcação e estilização usadas para estruturar e embelezar a interface web.
+
+---
+
+## 📁 Estrutura do Projeto
+
