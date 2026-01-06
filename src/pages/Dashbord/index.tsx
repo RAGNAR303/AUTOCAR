@@ -15,6 +15,8 @@ import type { CarInfoProps } from "../Home";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { BsTrashFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
+import { RiEdit2Fill } from "react-icons/ri";
 
 // import { deleteObject, ref } from "firebase/storage";
 
@@ -86,16 +88,26 @@ export function DashBord() {
         <main className="grid gap-2.5 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {cars &&
             cars.map((car) => (
-              <div className="relative">
-                <button
-                  className="absolute z-20 top-3 right-3  md:text-3xl bg-zinc-300 text-zinc-800 hover:text-zinc-300
-                    hover:bg-red-700 transition-all duration-300 rounded-full p-3 shadow"
-                  onClick={() => handledDelete(car)}
-                >
-                  <BsTrashFill />
-                </button>
+              <div className="relative" key={car.id}>
+                <div className="absolute z-20 top-3 right-3 flex flex-col gap-1 ">
+                  <button
+                    className=" md:text-3xl bg-zinc-300 text-zinc-800 hover:text-zinc-300
+                    hover:bg-red-700 transition-all duration-300 rounded-full p-2 shadow"
+                    onClick={() => handledDelete(car)}
+                  >
+                    <BsTrashFill />
+                  </button>
+                  <Link to={`/painel/editar/${car.id}`}>
+                    <button
+                      className="  md:text-3xl bg-zinc-300 text-zinc-800 hover:text-zinc-300
+                    hover:bg-blue-700 transition-all duration-300 rounded-full p-2 shadow"
+                    >
+                      <RiEdit2Fill />
+                    </button>
+                  </Link>
+                </div>
 
-                <Card info={car} key={car.id} />
+                <Card info={car} />
               </div>
             ))}
         </main>

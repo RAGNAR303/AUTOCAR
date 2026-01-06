@@ -8,6 +8,7 @@ import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Private } from "./routes/private";
 import { ErrorPages } from "./pages/ErroPages";
+import { EditCar } from "./pages/Dashbord/EditCar";
 
 const router = createBrowserRouter([
   {
@@ -31,10 +32,17 @@ const router = createBrowserRouter([
       },
       {
         path: "/painel/novo",
-
         element: (
           <Private>
             <NewCar />
+          </Private>
+        ),
+      },
+      {
+        path: "/painel/editar/:id",
+        element: (
+          <Private>
+            <EditCar />
           </Private>
         ),
       },
