@@ -229,4 +229,11 @@ export const carlist6 = [
       "https://image.webmotors.com.br/_fotos/anunciousados/gigante/2025/202512/20251231/porsche-911-4-0-24v-h6-gasolina-gt3-rs-pdk-wmimagem04040696523.webp?s=fill&w=552&h=414&q=60",
     url: "https://image.webmotors.com.br/_fotos/anunciousados/gigante/2025/202512/20251231/porsche-911-4-0-24v-h6-gasolina-gt3-rs-pdk-wmimagem04040696523.webp?s=fill&w=552&h=414&q=60",
   },
+  {
+    name: uuidV4(),
+    uid: "skbQ2D8gYJQJ9XnX5rdnuWt1rC73",
+    previewUrl:
+      "https://image.webmotors.com.br/_fotos/anunciousados/gigante/2025/202512/20251231/porsche-911-4-0-24v-h6-gasolina-gt3-rs-pdk-wmimagem04040877213.webp?s=fill&w=552&h=414&q=60",
+    url: "https://image.webmotors.com.br/_fotos/anunciousados/gigante/2025/202512/20251231/porsche-911-4-0-24v-h6-gasolina-gt3-rs-pdk-wmimagem04040877213.webp?s=fill&w=552&h=414&q=60",
+  },
 ];

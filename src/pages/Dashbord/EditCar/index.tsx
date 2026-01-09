@@ -17,12 +17,11 @@ import {
   getDownloadURL,
   deleteObject,
 } from "firebase/storage";
-import { addDoc, collection, doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { BsTrashFill } from "react-icons/bs";
 import { toast } from "react-hot-toast";
 
 import { useNavigate, useParams } from "react-router-dom";
-import type { CarInfoProps } from "../../Home";
 
 const schema = z.object({
   name: z.string().nonempty("O nome e obrigatório"),
@@ -43,7 +42,7 @@ const schema = z.object({
     .nonempty("Coloque a descrição veículo"),
 });
 
-type FormRegister = z.infer<typeof schema>;
+type FormUpdate = z.infer<typeof schema>;
 
 interface ImagesUrlProps {
   name: string;
@@ -62,53 +61,32 @@ export function EditCar() {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<FormRegister>({
+  } = useForm<FormUpdate>({
     resolver: zodResolver(schema),
     mode: "onChange",
   });
   const [carImage, setCarImage] = useState<ImagesUrlProps[]>([]);
-  const [carEdit, setCarEdit] = useState<CarInfoProps>();
 
   useEffect(() => {
-    function loadInfoCar() {
+    async function loadInfoCar() {
       if (!id) {
         return;
       }
 
       const carRef = doc(db, "cars", id);
-      getDoc(carRef)
-        .then((snapshot) => {
-          console.log(snapshot.data());
+      const snapshot = await getDoc(carRef);
 
-          if (!snapshot.data()) {
-            navigate("/");
-            return;
-          }
-          setCarEdit({
-            name: snapshot.data()?.name,
-            model: snapshot.data()?.model,
-            city: snapshot.data()?.city,
-            km: snapshot.data()?.km,
-            price: snapshot.data()?.price,
-            year: snapshot.data()?.year,
-            id: snapshot.data()?.id,
-            uid: snapshot.data()?.uid,
-            whatsapp: snapshot.data()?.whatsapp,
-            description: snapshot.data()?.description,
-            images: snapshot.data()?.images,
-            owner: snapshot.data()?.owner,
-          });
-         
-          
-        })
-        .catch((err) => {
-          console.log("NÃO FOI POSSIVEL TRAZER INFORMAÇOES DO VEICULO" + err);
-        });
+      if (!snapshot.exists()) {
+        navigate("/");
+        return;
+      }
+
+      reset(snapshot.data() as FormUpdate);
     }
     loadInfoCar();
-  }, [id, navigate]);
+  }, [id, navigate, reset]);
 
-  function onRegister(data: FormRegister) {
+  function onUpdade(data: FormUpdate) {
     if (carImage.length === 0) {
       alert("Adicione imagen para continuar");
       return;
@@ -121,19 +99,10 @@ export function EditCar() {
         url: car.url,
       };
     });
-
-    updateDoc((db, "cars", id), {
-      name: data.name.toUpperCase(),
-      model: data.model,
-      year: data.year,
-      km: data.km,
-      price: data.price,
-      city: data.city,
-      whatsapp: data.whatsapp,
-      description: data.description,
-      createAt: new Date(),
-      owner: user?.name,
-      uid: user?.uid,
+    const docRef = doc(db, "cars", id!);
+    updateDoc(docRef, {
+      ...data,
+      updateAt: new Date(),
       images: imagesCarFilter,
     })
       .then(() => {
@@ -240,7 +209,7 @@ rounded  bg-zinc-800/80 flex-col md:flex-row gap-2 "
           ))}
         </div>
         <form
-          onSubmit={handleSubmit(onRegister)}
+          onSubmit={handleSubmit(onUpdade)}
           className="flex flex-col w-full gap-3 mt-6"
         >
           <section className="flex flex-col md:flex-row w-full gap-5">
@@ -253,7 +222,6 @@ rounded  bg-zinc-800/80 flex-col md:flex-row gap-2 "
                 id="name"
                 error={errors.name?.message}
                 register={register}
-                defaultValue={carEdit?.name}
               />
             </div>
             <div className="w-full">
@@ -265,7 +233,6 @@ rounded  bg-zinc-800/80 flex-col md:flex-row gap-2 "
                 id="model"
                 error={errors.model?.message}
                 register={register}
-                defaultValue={carEdit?.model}
               />
             </div>
           </section>
@@ -279,7 +246,6 @@ rounded  bg-zinc-800/80 flex-col md:flex-row gap-2 "
                 id="year"
                 error={errors.year?.message}
                 register={register}
-                defaultValue={carEdit?.year}
               />
             </div>
             <div className="w-full">
@@ -291,7 +257,6 @@ rounded  bg-zinc-800/80 flex-col md:flex-row gap-2 "
                 id="km"
                 error={errors.km?.message}
                 register={register}
-                defaultValue={carEdit?.km}
               />
             </div>
             <div className="w-full">
@@ -303,7 +268,6 @@ rounded  bg-zinc-800/80 flex-col md:flex-row gap-2 "
                 id="price"
                 error={errors.price?.message}
                 register={register}
-                defaultValue={carEdit?.price}
               />
             </div>
           </section>
@@ -317,7 +281,6 @@ rounded  bg-zinc-800/80 flex-col md:flex-row gap-2 "
                 id="city"
                 error={errors.city?.message}
                 register={register}
-                defaultValue={carEdit?.city}
               />
             </div>
             <div className="w-full">
@@ -329,7 +292,6 @@ rounded  bg-zinc-800/80 flex-col md:flex-row gap-2 "
                 id="whatsapp"
                 error={errors.whatsapp?.message}
                 register={register}
-                defaultValue={carEdit?.whatsapp}
               />
             </div>
           </section>
@@ -341,7 +303,6 @@ rounded  bg-zinc-800/80 flex-col md:flex-row gap-2 "
               {...register("description")}
               name="description"
               id="description"
-              defaultValue={carEdit?.description}
               className="h-20 outline-none px-2 mx-auto w-full flex drop-shadow shadow p-1 
                   rounded  bg-zinc-800/80"
             ></textarea>
@@ -355,7 +316,7 @@ rounded  bg-zinc-800/80 flex-col md:flex-row gap-2 "
             )}
           </div>
           <Button className="mt-5" variant="default">
-            Cadastrar
+            salvar
           </Button>
         </form>
       </div>

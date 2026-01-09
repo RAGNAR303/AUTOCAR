@@ -61,7 +61,7 @@ export function NewCar() {
     resolver: zodResolver(schema),
     mode: "onChange",
   });
-  const [carImage, setCarImage] = useState<ImagesUrlProps[]>(carlist6);
+  const [carImage, setCarImage] = useState<ImagesUrlProps[]>([]);
 
   function onRegister(data: FormRegister) {
     if (carImage.length === 0) {
@@ -87,6 +87,7 @@ export function NewCar() {
       whatsapp: data.whatsapp,
       description: data.description,
       createAt: new Date(),
+
       owner: user?.name,
       uid: user?.uid,
       images: imagesCarFilter,
