@@ -9,7 +9,9 @@ import { auth } from "../../services/firebaseConnection";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { useEffect } from "react";
 import { toast } from "react-hot-toast";
-
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
+import { FcGoogle } from "react-icons/fc";
 const schema = z.object({
   email: z
     .string()
@@ -21,6 +23,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export function Login() {
+  const { loginInWithGoogle } = useContext(AuthContext);
   const navigate = useNavigate();
   const {
     register,
@@ -49,6 +52,11 @@ export function Login() {
         toast.error("VERIFIQUE OS DADOS E TENTE NOVAMANTE");
         console.log(error);
       });
+  }
+
+  async function handleLoginGoogle() {
+    await loginInWithGoogle();
+    navigate("/painel", { replace: true });
   }
 
   return (
@@ -88,7 +96,14 @@ export function Login() {
             Acessar
           </Button>
         </form>
-
+        <p className="text-xl font-black">ou</p>
+        <Button
+          onClick={handleLoginGoogle}
+          variant="google"
+          className="w-full shadow"
+        >
+          Conta Google <FcGoogle />
+        </Button>
         <p>
           Ainda não possui uma conta?{" "}
           <Link to={"/cadastro"} className="hover:underline">

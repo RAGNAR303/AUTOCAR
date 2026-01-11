@@ -1,6 +1,8 @@
 import { type ReactNode, createContext, useState, useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
+import { type User, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../services/firebaseConnection";
+import { loginInGoogle } from "../services/authGoogle";
+
 interface AuthProviderProps {
   children: ReactNode;
 }
@@ -8,10 +10,11 @@ interface AuthProviderProps {
 type AuthContextData = {
   signed: boolean;
   loadingAuth: boolean;
+  loginInWithGoogle: () => void;
   handleInfoUser: ({ email, name, uid }: UserProps) => void;
-  user: UserProps | null;
+  user: UserProps | User | null;
 };
-interface UserProps {
+export interface UserProps {
   uid: string;
   name: string | null;
   email: string | null;
@@ -20,9 +23,19 @@ interface UserProps {
 export const AuthContext = createContext({} as AuthContextData);
 
 function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<UserProps | null>(null);
+  const [user, setUser] = useState<UserProps | User | null>(null);
   const [loadingAuth, setLoandingAuth] = useState(true);
+  console.log(user);
 
+  async function loginInWithGoogle() {
+    try {
+      const userData = await loginInGoogle();
+      setUser(userData);
+      console.log(userData);
+    } catch (error) {
+      console.log("Não foi possivel logar" + error);
+    }
+  }
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
@@ -59,6 +72,7 @@ function AuthProvider({ children }: AuthProviderProps) {
         loadingAuth,
         user,
         handleInfoUser,
+        loginInWithGoogle,
       }}
     >
       {children}

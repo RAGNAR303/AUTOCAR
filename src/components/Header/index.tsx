@@ -3,10 +3,9 @@ import { Link } from "react-router-dom";
 import { HiMiniUserCircle } from "react-icons/hi2";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
-
 export function Header() {
   const { signed, loadingAuth, user } = useContext(AuthContext);
-
+  console.log(user);
   return (
     <header className="flex justify-center items-center drop-shadow shadow-xl w-full ">
       <nav
@@ -24,7 +23,11 @@ export function Header() {
           to={!loadingAuth && signed ? "/painel" : "/login"}
           className="text-4xl flex items-center gap-2"
         >
-          {user && user.name && <span className="text-sm capitalize">{user.name}</span>}
+          {user && (
+            <span className="text-sm capitalize">
+              {user.name || user.displayName}
+            </span>
+          )}
           {!loadingAuth && signed ? <HiMiniUserCircle /> : <HiOutlineLogin />}
         </Link>
       </nav>
